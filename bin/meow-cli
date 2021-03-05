@@ -1,0 +1,59 @@
+#! /usr/bin/env node
+
+const commander = require('commander');
+const chalk = require('chalk');
+const package = require('../package.json')
+
+const cleanArgs = (cmd)=>{
+  const args = {};
+  
+  cmd.options.forEach(option=>{
+    const key = option.long.slice(2);
+    if(cmd[key]){
+      args[key] = cmd[key]
+    }
+  })
+
+  return args
+}
+
+commander
+.command('create <app-name>')
+.description('create a new project')
+.option('-f, --force', 'overwrite target directory if exit')
+.action((name, cmd)=>{
+  console.log(name, cmd);
+  require('../lib/create')(name, cmd)
+})
+
+// [] 是可选项 <> 是值
+commander
+.command('config [option]')
+.description('inspect and modify the config')
+.option('-g, --get <path>', 'get value from option')
+.option('-s, --set <path> <value>')
+.option('-d, --delete <path>','delete option from config')
+.action((value, cmd)=>{
+  console.log(value, cmd);
+})
+
+commander
+.command('ui')
+.description('start and open meow-cli ui')
+.option('-p, --port <port>', 'port used for the UI Server')
+.action(({port})=>{
+  console.log(port);
+})
+
+
+commander
+.version(`${package.name}@${package.version}`)
+.usage(`<command> [option]`)
+
+commander.on('--help', ()=>{
+  console.log(`\nRun ${chalk.cyan('meow-cli <command> --help')} show details\n`);
+})
+
+// 解析用户命令行传入的参数
+commander
+.parse(process.argv)
