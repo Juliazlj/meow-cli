@@ -61,7 +61,5 @@ buck-out/
 /ios/Pods/
 .vscode/*
 yarn-debug.log*
-yarn.lock*
 yarn-error.log*
-package-lock.json*
 /dist
