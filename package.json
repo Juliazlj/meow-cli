@@ -1,6 +1,6 @@
 {
   "name": "@juliana_mewo/meow-cli",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "a custom cli",
   "main": "index.js",
   "bin": "./bin/meow-cli",
